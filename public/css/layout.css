@@ -33,8 +33,7 @@ header {
    height: 800px;
    min-height: 500px;
    width: 100%;
-   /*background: #161415 url(../images/galaxy-background.jpg) no-repeat top center;*/
-   background: #161415 url(http://localhost:5000/profilepic/galaxy-background.jpg) no-repeat top center;
+   background: #000000 url(../images/galaxy-background.jpg) no-repeat top center;
    background-size: cover !important;
 	-webkit-background-size: cover !important;
    text-align: center;
@@ -188,11 +187,12 @@ ul#nav li.current a { color: #F06000; }
 /* ------------------------------------------------------------------ */
 
 #about {
-   background: #2B2B2B;
+   background: #2d2d2d;
    padding-top: 96px;
    padding-bottom: 66px;
    overflow: hidden;
 }
+
 
 #about a, #about a:visited  { color: #fff; }
 #about a:hover, #about a:focus { color: #11ABB0; }
@@ -204,7 +204,7 @@ ul#nav li.current a { color: #F06000; }
 }
 #about p {
    line-height: 30px;
-   color: #7A7A7A;
+   color: #f5f5f5;
 }
 #about .profile-pic {
    position: relative;

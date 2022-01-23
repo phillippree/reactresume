@@ -9,11 +9,13 @@ import Contact from './Components/Contact'
 import axios from "axios"
 import {SERVER_URL} from "./Config/const";
 
+import jsondata from "./resume.json"
+
 
 import 'react-image-gallery/styles/css/image-gallery.css'
 
 export const App = () => {
-    const [data, setData] = useState(null)
+    const [data, setData] = useState(jsondata)
 
     const getData = async () => {
         let resp = await axios.get(SERVER_URL + "/data.json")
@@ -21,7 +23,7 @@ export const App = () => {
     }
 
     useEffect(() => {
-        getData()
+        // getData()
     }, [])
 
     if (data) {
