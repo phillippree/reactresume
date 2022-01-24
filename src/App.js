@@ -1,17 +1,15 @@
 import React, {Component, useState, useEffect} from 'react';
-import './App.css';
 import Header from './Components/Header'
 import About from './Components/About'
 import Education from './Components/Education'
 import Work from './Components/Work'
 import Portfolio from './Components/Portfolio'
 import Contact from './Components/Contact'
-import axios from "axios"
 import {SERVER_URL} from "./Config/const";
-
+import axios from "axios"
 import jsondata from "./resume.json"
 
-
+import 'bootstrap/dist/css/bootstrap.min.css'
 import 'react-image-gallery/styles/css/image-gallery.css'
 
 export const App = () => {

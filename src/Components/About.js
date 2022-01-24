@@ -1,23 +1,23 @@
-import React, {Component} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import {SERVER_URL} from "../Config/const";
 
 
-class About extends Component {
-    render() {
-        if (this.props.data) {
-            var bio = this.props.data.bio.map((each) => {
-                return <p>{each}</p>
-            })
-            var name = this.props.data.name;
-            var street = this.props.data.address.street;
-            var city = this.props.data.address.city;
-            var state = this.props.data.address.state;
-            var resumelink = this.props.data.resumedownload;
-            var profilepiclink = this.props.data.image;
-            var email = this.props.data.email;
-            var phonenumber = this.props.data.phone;
 
+const About = props => {
+    const [data, setData] = useState(null)
+
+    useEffect(()=>{
+        if(props.data){
+            setData(props.data)
         }
+    }, [props])
+
+    if (data){
+        let name = data.name
+        let resumelink = data.resumedownload
+        let email = data.email
+        let bio = data.bio.map(e=> <p>{e}</p>)
+
         return (
             <div className="App">
                 <div className="App-header">
@@ -49,8 +49,11 @@ class About extends Component {
                     </section>
                 </div>
             </div>
-        );
+        )
     }
+    return null
+
 }
+
 
 export default About;
