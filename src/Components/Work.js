@@ -19,6 +19,8 @@ ChartJS.register(
     Legend
 )
 
+const PUBLIC_URL = process.env.PUBLIC_URL
+
 const getColor = (ind, transparency) => {
     let colors = [
         `rgba(255, 99, 132, ${transparency})`,
@@ -43,7 +45,8 @@ const Work = props => {
         return data.work.map(w => {
             return <div className="row item">
                 <div className="twelve columns">
-                    <h3><i className="fab fa-amazon"></i>{w.company}</h3>
+                    <h3>{w.company}</h3>
+                    <img src={PUBLIC_URL + w.logo} alt="" width="50" height="50"/>
                     <p className="info">{w.title}</p>
                     <p className="date">{w.years}</p>
                     {w.description.map((each) => {
@@ -111,7 +114,6 @@ const Work = props => {
                     labels,
                     datasets,
                 }
-                console.log('labels', datasets, labels)
 
                 return (
                     <div key={i} className={'bars'}>

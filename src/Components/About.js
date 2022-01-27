@@ -1,7 +1,6 @@
 import React, {Component, useState, useEffect} from 'react';
-import {SERVER_URL} from "../Config/const";
 
-
+const PUBLIC_URL = process.env.PUBLIC_URL
 
 const About = props => {
     const [data, setData] = useState(null)
@@ -24,7 +23,7 @@ const About = props => {
                     <section id="about">
                         <div className="row">
                             <div className="three columns">
-                                <img className="profile-pic" src={SERVER_URL + "/images/profilepic.jpg"} alt=""/>
+                                <img className="profile-pic" src={PUBLIC_URL + "/images/profilepic.jpg"} alt=""/>
                             </div>
                             <div className="nine columns main-col">
                                 <h2>About Me</h2>
