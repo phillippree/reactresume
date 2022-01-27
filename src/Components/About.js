@@ -16,7 +16,7 @@ const About = props => {
         let name = data.name
         let resumelink = data.resumedownload
         let email = data.email
-        let bio = data.bio.map(e=> <p>{e}</p>)
+        let bio = data.bio.map((e,i)=> <p key={i}>{e}</p>)
 
         return (
             <div className="App">

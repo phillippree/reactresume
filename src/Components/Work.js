@@ -1,17 +1,49 @@
 import React, {useState, useEffect} from 'react'
 import {Button} from "reactstrap"
 import {Bar} from "react-chartjs-2"
+import {
+    Chart as ChartJS, CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+} from "chart.js";
 
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+)
+
+const getColor = (ind, transparency) => {
+    let colors = [
+        `rgba(255, 99, 132, ${transparency})`,
+        `rgba(54, 162, 235, ${transparency})`,
+        `rgba(255, 206, 86, ${transparency})`,
+        `rgba(75, 192, 192, ${transparency})`,
+        `rgba(153, 102, 255, ${transparency})`,
+        `rgba(255, 159, 64, ${transparency})`,
+    ]
+    if (ind <= colors.length) {
+        return colors[ind]
+    } else {
+        return colors[ind % colors.length]
+    }
+}
 
 const Work = props => {
     const [data, setData] = useState(null)
-    const [currentTab, setCurrentTab] = useState("python")
+    const [currentTab, setCurrentTab] = useState("language")
 
     const renderWork = () => {
         return data.work.map(w => {
             return <div className="row item">
                 <div className="twelve columns">
-                    <h3>{w.company}</h3>
+                    <h3><i className="fab fa-amazon"></i>{w.company}</h3>
                     <p className="info">{w.title}</p>
                     <p className="date">{w.years}</p>
                     {w.description.map((each) => {
@@ -27,17 +59,17 @@ const Work = props => {
             let val = e.target.value
             setCurrentTab(val.toLowerCase())
         }
-        let colors = ["primary", "secondary", "success", "info", "warning"]
-        let btns = data.skills.map((e,i) => {
+        let btns = data.skills.map((e, i) => {
             return <Button
+                key={i}
                 onClick={onClick}
                 active={e.topic.toLowerCase() === currentTab}
-                color={colors[i]}
+                color="primary"
                 size="lg"
                 outline
                 value={e.topic}
                 style={{marginRight: "1em"}}
-            >{e.topic}!!</Button>
+            >{e.topic}</Button>
         })
         return (
             <div style={{marginLeft: "2em"}}>
@@ -47,58 +79,45 @@ const Work = props => {
     }
 
     const options = {
-        indexAxis: 'y',
+        indexAxis: "y",
         elements: {
             bar: {
                 borderWidth: 2,
-            },
+            }
         },
         responsive: true,
         plugins: {
             legend: {
-                position: 'right',
+                position: "right"
             },
             title: {
-                display: true,
-                text: 'Chart.js Horizontal Bar Chart',
-            },
-        },
-    };
+                display: false,
+            }
+        }
+    }
 
     const renderSkills = () => {
-        return data.skills.map(e => {
-            if(e.topic.toLowerCase() === currentTab){
+        return data.skills.map((e, i) => {
+            if (e.topic.toLowerCase() === currentTab) {
                 let labels = e.list.map(each => each.name)
-                let dataset = {
+                let dataset = e.list.map(each => each.level)
+                let datasets = [{
                     label: e.topic,
-                    data: [2,3,2,2,3,2,4],
-                    borderColor: 'rgb(255, 99, 132)',
-                    backgroundColor: 'rgba(255, 99, 132, 0.5)'
-                }
+                    data: dataset,
+                    backgroundColor: getColor(i, .2),
+                    borderColor: getColor(i, 1)
+                }]
                 let chartdata = {
                     labels,
-                    dataset
+                    datasets,
                 }
-                console.log(e.list.map(each => parseInt(each.level)))
+                console.log('labels', datasets, labels)
+
                 return (
-                    <div className={'bars'}>
+                    <div key={i} className={'bars'}>
                         <h3 className={'bar-header'}>{e.topic} <i className={e.className}></i></h3>
                         <div>
                             <Bar data={chartdata} options={options}/>
-                            {/*{e.list.map((eachTopic) => {*/}
-                            {/*    return (*/}
-                            {/*        <div>*/}
-                            {/*            <div className={'bar-title'}>{eachTopic.name}</div>*/}
-                            {/*            <div className="progress">*/}
-                            {/*                <div className="progress-bar" role="progressbar" aria-valuenow="60"*/}
-                            {/*                     aria-valuemin="0"*/}
-                            {/*                     aria-valuemax="100" style={{width: eachTopic.level}}>*/}
-                            {/*                    {eachTopic.level}*/}
-                            {/*                </div>*/}
-                            {/*            </div>*/}
-                            {/*        </div>*/}
-                            {/*    )*/}
-                            {/*})}*/}
                         </div>
                     </div>
                 )
